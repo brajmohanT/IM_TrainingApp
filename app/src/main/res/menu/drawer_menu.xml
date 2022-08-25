@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/gpr1">
+        <item
+            android:title="Frag 1"
+            android:icon="@drawable/ic_baseline_looks_one_24"
+            android:id="@+id/btnFrag1"/>
+        <item android:title="Frag 2"
+            android:id="@+id/btnFrag2"/>
+        <item android:title="Frag 3"
+            android:id="@+id/btnFrag3"/>
+        <item android:title="Frag 4"
+            android:id="@+id/btnFrag4"/>
+    </group>
+
+    <group android:id="@+id/gpr2">
+        <item android:title="Activity 2"
+            android:id="@+id/btnAct2"/>
+    </group>
+</menu>
