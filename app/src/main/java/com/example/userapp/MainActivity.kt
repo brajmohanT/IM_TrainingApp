@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private val fragment3: Fragment = Fragment3()
     private val fragment4: Fragment = Fragment4()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
