@@ -81,16 +81,15 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         return true
     }
 
+//     TODO: empty the backstack when reached on starting fragment.
+
     // moving to the particular fragment as instructed from navigation items clicks
     fun manageFragments(frag: Fragment,toolBarTitle:String){
 
         appBar.title= toolBarTitle
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_cv,frag)
-
-
             addToBackStack(null)
-
             commit()
         }
 

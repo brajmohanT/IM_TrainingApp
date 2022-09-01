@@ -83,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="Ricky"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:id="@+id/ufName"/>
 
 
 
@@ -123,7 +124,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="Ponting"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:id="@+id/ulName"/>
 
 
 
@@ -162,7 +164,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="9090811825"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:id="@+id/uPhone"/>
 
 
 
@@ -201,7 +204,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="ponting@au.com"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:id="@+id/uEmail"/>
 
 
 
@@ -240,7 +244,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:text="Melbourne"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:id="@+id/uCity"/>
 
 
 
