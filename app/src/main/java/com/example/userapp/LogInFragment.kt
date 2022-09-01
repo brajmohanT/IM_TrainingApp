@@ -23,7 +23,7 @@ class LogInFragment : Fragment() {
 
 //    private lateinit var database: PersonDB
 
-    private lateinit var id:LiveData<Long>
+
 
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -79,6 +79,7 @@ class LogInFragment : Fragment() {
 
         sharedViewModel.personExist(emailValue,fNameValue).observe(viewLifecycleOwner) {
             if(it==1){
+               sharedViewModel.id=  sharedViewModel.getId(emailValue)
                 activity?.supportFragmentManager?.beginTransaction()?.apply {
                     replace(R.id.fragment_cv, Fragment1())
                     addToBackStack(null)

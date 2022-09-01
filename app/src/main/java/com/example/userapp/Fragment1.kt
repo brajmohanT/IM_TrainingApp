@@ -8,21 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
+import com.example.userapp.databinding.Fragment1Binding
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.async
 
 class Fragment1 : Fragment() {
     private lateinit var database: PersonDB
     private lateinit var updatedPerson: LiveData<Person>
+
+//    private lateinit var binding : Fragment1Binding
 //    private var newId: Long? = null
-    private val model: SharedViewModel by activityViewModels()
+private var _binding: Fragment1Binding? = null
+    private val binding get() = _binding!!
+
+
+    private  lateinit var  person :Person
+
+private lateinit var sharedViewModel: SharedViewModel
     lateinit var fname: TextView
     lateinit var lname: TextView
     private lateinit var phone: TextView
@@ -33,6 +39,7 @@ class Fragment1 : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
     }
 
     override fun onCreateView(
@@ -40,14 +47,22 @@ class Fragment1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_1, container, false)
+        _binding = Fragment1Binding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getFromstore(view)
 
-            getFromRoom(view)
+
+        val dao=  PersonDB.getDB(requireActivity().applicationContext).personDao()
+        val repository = Repository(dao)
+        sharedViewModel = ViewModelProvider(this, SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
+
+
+        getFromRoom(view)
     }
 
     fun getFromstore(view: View) {
@@ -72,14 +87,18 @@ class Fragment1 : Fragment() {
    fun getFromRoom(view: View) {
         fname = view.findViewById(R.id.ufName)
 
-//        model.id.observe(viewLifecycleOwner) { id ->
-//            Log.d("Brajmohan", id.toString())
-//                Log.d("Brajmohan", "its Runing")
-//             //   updatedPerson = database.personDao().getPerson(id)
-//             //   Log.d("Brajmohan", updatedPerson.toString())
-//             //  fname.text = updatedPerson.value?.fName
+       sharedViewModel.id.observe(viewLifecycleOwner) {
 
-//            }
+           binding.person = sharedViewModel.getPerson(it).value!!
+
+       }
         }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+
+}
 
