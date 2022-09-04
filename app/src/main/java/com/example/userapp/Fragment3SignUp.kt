@@ -16,13 +16,20 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.math.log
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
+import com.example.userapp.databinding.Fragment3Binding
+import com.example.userapp.databinding.FragmentEditBinding
 
 
 class Fragment3 : Fragment() {
 
+    private var _binding: Fragment3Binding? = null
+    private val binding get() = _binding!!
 
-//    private lateinit var database: PersonDB
-    private lateinit var contextView :View
+    private lateinit var sharedViewModel: SharedViewModel
+
+    //    private lateinit var database: PersonDB
+    private lateinit var contextView: View
     private lateinit var signUpBtn: Button
     private lateinit var logInBtn: Button
     private lateinit var fName: EditText
@@ -30,7 +37,6 @@ class Fragment3 : Fragment() {
     private lateinit var phone: EditText
     private lateinit var email: EditText
     private lateinit var city: EditText
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,14 +47,15 @@ class Fragment3 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_3, container, false)
+        _binding = Fragment3Binding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         signUpBtn = view.findViewById(R.id.signUp_btn)
-        logInBtn = view.findViewById(R.id.login_btn)
+//        logInBtn = view.findViewById(R.id.login_btn)
         fName = view.findViewById(R.id.signUp_fName)
         lName = view.findViewById(R.id.signUp_lName)
         phone = view.findViewById(R.id.signUp_number)
@@ -57,19 +64,25 @@ class Fragment3 : Fragment() {
         contextView = view.findViewById(R.id.frag3)
 
 //        database = PersonDB.getDB(requireActivity().applicationContext)
-
+        val dao = PersonDB.getDB(requireActivity().applicationContext).personDao()
+        val repository = Repository(dao)
+        sharedViewModel =
+            ViewModelProvider(requireActivity(), SharedViewModelFactory(repository)).get(
+                SharedViewModel::class.java
+            )
 
         signUpBtn.setOnClickListener {
-            saveData()
+//            saveData()
+            saveUser()
         }
 
-        logInBtn.setOnClickListener{
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragment_cv,LogInFragment())
-                addToBackStack(null)
-                commit()
-            }
-        }
+//        logInBtn.setOnClickListener {
+//            activity?.supportFragmentManager?.beginTransaction()?.apply {
+//                replace(R.id.fragment_cv, LogInFragment())
+//                addToBackStack(null)
+//                commit()
+//            }
+//        }
 
     }
 
@@ -117,5 +130,51 @@ class Fragment3 : Fragment() {
 //        }
 
 
+    }
+
+    private fun saveUser() {
+
+        if(binding.signUpFName.text.length>2 &&
+        binding.signUpLName.text.length>2 &&
+        binding.signUpNumber.text.length==10 &&
+        binding.signUpEmail.text.length>5&&
+        binding.signUpCity.text.length>2)
+        {
+            sharedViewModel.mailExist(binding.signUpEmail.text.toString())
+                .observe(viewLifecycleOwner) {
+//           Log.d("Exist", it.toString())
+                    if (it == 0) {
+                        sharedViewModel.insertPerson(
+                            Person(
+                                0,
+                                binding.signUpFName.text.toString(),
+                                binding.signUpLName.text.toString(),
+                                binding.signUpNumber.text.toString(),
+                                binding.signUpEmail.text.toString(),
+                                binding.signUpCity.text.toString()
+                            )
+                        )
+                        fragmentChange()
+
+                    } else {
+                        Log.d("Brajmohan", "USER ALREADY EXists")
+                        Snackbar.make(contextView, "User Alreday hai", Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+
+                }
+        }else {
+            Snackbar.make(contextView, "use correct formats", Snackbar.LENGTH_SHORT)
+                .show()
+        }
+
+    }
+
+    private fun fragmentChange() {
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.fragment_cv, LogInFragment())
+            addToBackStack(null)
+            commit()
+        }
     }
 }

@@ -10,10 +10,6 @@
             type="com.example.userapp.Person" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -84,12 +80,12 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/ufName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:text="@{person.FName}"
-                            android:textSize="18dp"
-                            android:id="@+id/ufName" />
+                            android:textSize="18dp" />
 
 
                     </LinearLayout>
@@ -97,8 +93,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -123,12 +119,12 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/ulName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:text="@{person.lName}"
-                            android:textSize="18dp"
-                            android:id="@+id/ulName" />
+                            android:textSize="18dp" />
 
 
                     </LinearLayout>
@@ -136,8 +132,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
@@ -162,12 +158,12 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/uPhone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:text="@{person.phone}"
-                            android:textSize="18dp"
-                            android:id="@+id/uPhone" />
+                            android:textSize="18dp" />
 
 
                     </LinearLayout>
@@ -175,8 +171,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.9dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
@@ -201,12 +197,12 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/uEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:text="@{person.email}"
-                            android:textSize="18dp"
-                            android:id="@+id/uEmail" />
+                            android:textSize="18dp" />
 
 
                     </LinearLayout>
@@ -214,8 +210,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.9dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
@@ -240,24 +236,39 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/uCity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:text="@{person.city}"
-                            android:textSize="18dp"
-                            android:id="@+id/uCity" />
+                            android:textSize="18dp" />
 
 
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/last_view"
                         android:layout_width="match_parent"
                         android:layout_height="0.9dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+                    <Button
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        app:icon="@drawable/ic_edit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/last_view"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/editBtn"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -265,15 +276,4 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="edit"
-            app:icon="@drawable/ic_edit"
-            android:text="edit" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

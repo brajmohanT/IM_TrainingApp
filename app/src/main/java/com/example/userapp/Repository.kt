@@ -1,10 +1,9 @@
 package com.example.userapp
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Query
 
 class Repository(private val personDAO: PersonDAO) {
+
 
     suspend fun insertPerson(person: Person){
         personDAO.insertPerson(person)
@@ -15,12 +14,14 @@ class Repository(private val personDAO: PersonDAO) {
     }
 
 
+
     suspend fun deletePerson(person: Person){
         personDAO.deletePerson(person)
     }
 
 
     fun getPerson(id :Long): LiveData<Person> {
+
         return personDAO.getPerson(id)
     }
 

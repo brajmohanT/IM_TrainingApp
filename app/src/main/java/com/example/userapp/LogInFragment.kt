@@ -8,16 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class LogInFragment : Fragment() {
 
@@ -26,8 +18,6 @@ class LogInFragment : Fragment() {
 
 
     private lateinit var sharedViewModel: SharedViewModel
-
-
 
     private lateinit var loginName: EditText
     private lateinit var loginEmail: EditText
@@ -61,7 +51,7 @@ class LogInFragment : Fragment() {
 
         val dao=  PersonDB.getDB(requireActivity().applicationContext).personDao()
         val repository = Repository(dao)
-        sharedViewModel = ViewModelProvider(this, SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity(), SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
 
 
 
@@ -77,14 +67,21 @@ class LogInFragment : Fragment() {
         val fNameValue = loginName.text.toString()
         val emailValue = loginEmail.text.toString()
 
-        sharedViewModel.personExist(emailValue,fNameValue).observe(viewLifecycleOwner) {
+        sharedViewModel.personExist(emailValue,fNameValue).observe(viewLifecycleOwner) { it ->
             if(it==1){
-               sharedViewModel.id=  sharedViewModel.getId(emailValue)
-                activity?.supportFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragment_cv, Fragment1())
-                    addToBackStack(null)
-                    commit()
+//                sharedViewModel.id= sharedViewModel.getId(emailValue).value !!
+
+                sharedViewModel.getId(emailValue).observe(viewLifecycleOwner) {id->
+                    sharedViewModel._id.value = id
+                    Log.d("Id", id.toString())
+
+                    activity?.supportFragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_cv, Fragment1())
+                        addToBackStack(null)
+                        commit()
+                    }
                 }
+
             }
             else {
                 Log.d("Brajmohan", "USER does not  EXists")

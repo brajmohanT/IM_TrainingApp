@@ -3,32 +3,25 @@ package com.example.userapp
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.example.userapp.databinding.Fragment1Binding
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.async
 
 class Fragment1 : Fragment() {
     private lateinit var database: PersonDB
     private lateinit var updatedPerson: LiveData<Person>
 
-//    private lateinit var binding : Fragment1Binding
-//    private var newId: Long? = null
-private var _binding: Fragment1Binding? = null
+    private var _binding: Fragment1Binding? = null
     private val binding get() = _binding!!
 
 
-    private  lateinit var  person :Person
+    private lateinit var person: Person
 
-private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     lateinit var fname: TextView
     lateinit var lname: TextView
     private lateinit var phone: TextView
@@ -38,8 +31,6 @@ private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -57,13 +48,26 @@ private lateinit var sharedViewModel: SharedViewModel
 //        getFromstore(view)
 
 
-        val dao=  PersonDB.getDB(requireActivity().applicationContext).personDao()
+        val dao = PersonDB.getDB(requireActivity().applicationContext).personDao()
         val repository = Repository(dao)
-        sharedViewModel = ViewModelProvider(this, SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
-
-
-        getFromRoom(view)
+        sharedViewModel =
+            ViewModelProvider(requireActivity(), SharedViewModelFactory(repository)).get(
+                SharedViewModel::class.java
+            )
+        getFromRoom()
+        binding.editBtn.setOnClickListener {
+            goToEdit()
+        }
     }
+
+
+    fun goToEdit() {
+
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.fragment_cv, EditFragment())
+            addToBackStack(null)
+            commit()
+    }}
 
     fun getFromstore(view: View) {
 
@@ -84,15 +88,25 @@ private lateinit var sharedViewModel: SharedViewModel
 
     }
 
-   fun getFromRoom(view: View) {
-        fname = view.findViewById(R.id.ufName)
+    private fun getFromRoom() {
 
-       sharedViewModel.id.observe(viewLifecycleOwner) {
 
-           binding.person = sharedViewModel.getPerson(it).value!!
+        sharedViewModel._id.observe(viewLifecycleOwner) { it ->
 
-       }
+            Log.d("Id", it.toString())
+            sharedViewModel.getPerson(it).observe(viewLifecycleOwner) {
+                binding.person = it
+            }
+
+//           Log.d("Id", it.toString())
+//           binding.person = sharedViewModel.getPerson(it).value!!
+//            val newId:Long = sharedViewModel.id
+//       Log.d("Id", newId.toString())
+//            if(sharedViewModel.id !==null)
+
+
         }
+    }
 
 
     override fun onDestroyView() {

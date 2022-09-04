@@ -9,7 +9,7 @@ data class Person(
 
     @PrimaryKey(autoGenerate = true)
     val id:Long,
-    val fName: String,
+    val fName: String = "Rickey",
     val lName: String,
     val phone: String,
     @NotNull
