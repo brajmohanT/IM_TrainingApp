@@ -84,7 +84,8 @@ class EditFragment : Fragment() {
     private fun goToProfile() {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.fragment_cv, Fragment1())
-            addToBackStack(null)
+            activity?.supportFragmentManager?.popBackStack(Constants.ROOT_FRAG_TAG,0)
+            addToBackStack(Constants.ROOT_FRAG_TAG)
             commit()
         }
     }

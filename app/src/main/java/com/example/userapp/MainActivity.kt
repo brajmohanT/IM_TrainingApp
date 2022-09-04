@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.userapp.Constants.DEFAULT_TOKEN
+import com.example.userapp.Constants.ROOT_FRAG_TAG
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 
@@ -59,9 +61,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (tokenManager.getToken() != DEFAULT_TOKEN) {
 
             sharedViewModel._id.value = tokenManager.getToken()
-            manageFragments(fragment1, "Home")
+            manageFragments(fragment1, "Home", 1)
         } else
-            manageFragments(getStarted, "Get Started")
+            manageFragments(getStarted, "Get Started", 0)
 
         // listening to clicks on navigation items
         nav_view.setNavigationItemSelectedListener(this)
@@ -92,8 +94,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         drawerLayout.closeDrawer(GravityCompat.START)
         when (item.itemId) {
-            R.id.btnFrag1 -> manageFragments(fragment1, "Home")
-            R.id.btnFrag2 -> manageFragments(fragment2, "Contacts")
+            R.id.btnFrag1 -> manageFragments(fragment1, "Home",1)
+            R.id.btnFrag2 -> manageFragments(fragment2, "Contacts",0)
             R.id.btnAct2 -> switchActivity()
 
         }
@@ -103,12 +105,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //     TODO: empty the backstack when reached on starting fragment.
 
     // moving to the particular fragment as instructed from navigation items clicks
-    private fun manageFragments(frag: Fragment, toolBarTitle: String) {
+    private fun manageFragments(frag: Fragment, toolBarTitle: String, flag: Int) {
 
         appBar.title = toolBarTitle
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_cv, frag)
-            addToBackStack(null)
+            if(flag==1){
+                supportFragmentManager.popBackStack(ROOT_FRAG_TAG,0)
+                addToBackStack(ROOT_FRAG_TAG)
+            }else
+                addToBackStack(null)
+
             commit()
         }
 
