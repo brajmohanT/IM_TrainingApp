@@ -255,6 +255,14 @@
                         android:layout_marginRight="20dp"
                         android:background="@color/black"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/last_view"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    android:gravity="center_horizontal">
+
 
                     <Button
 
@@ -262,13 +270,17 @@
                         android:layout_height="wrap_content"
                         android:text="Edit"
                         app:icon="@drawable/ic_edit"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/last_view"
-                        android:layout_marginTop="20dp"
-                        android:id="@+id/editBtn"/>
+                        android:id="@+id/editBtn"
+                        android:layout_marginRight="15dp"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change Account"
+                        android:id="@+id/changeAcc"
+                        />
+
+</LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

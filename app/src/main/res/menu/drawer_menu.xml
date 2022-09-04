@@ -4,15 +4,11 @@
 
     <group android:id="@+id/gpr1">
         <item
-            android:title="Frag 1"
-            android:icon="@drawable/ic_baseline_looks_one_24"
-            android:id="@+id/btnFrag1"/>
-        <item android:title="Frag 2"
+            android:title="Home"
+            android:id="@+id/btnFrag1"
+            />
+        <item android:title="Contacts"
             android:id="@+id/btnFrag2"/>
-        <item android:title="Frag 3"
-            android:id="@+id/btnFrag3"/>
-        <item android:title="Frag 4"
-            android:id="@+id/btnFrag4"/>
     </group>
 
     <group android:id="@+id/gpr2">

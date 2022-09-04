@@ -2,5 +2,7 @@
     <string name="app_name">User App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Quote">Theory and practice sometimes clash. And when that happens, theory loses. Every single time.</string>
+    <string name="Auther">- Linus Torvalds</string>
+
 </resources>
